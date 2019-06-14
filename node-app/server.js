@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser");
+const compression = require('compression');
+const helmet = require('helmet');
 
 
 
@@ -38,10 +40,14 @@ app.get("/",(req,res) => {
 // use routes
 app.use("/api/users", users);
 app.use("/api/words", words);
+app.use(compression());
+app.use(helmet());
 
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
     console.log('Server is running on port ${port}');
 })
+
+process.env.NODE_ENV = 'production';
 
